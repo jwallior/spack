@@ -12,6 +12,7 @@ class PyJupyterClient(PythonPackage):
     homepage = "https://github.com/jupyter/jupyter_client"
     url      = "https://github.com/jupyter/jupyter_client/archive/4.4.0.tar.gz"
 
+    version('5.2.3', '411e5aaf0db1e1b6334a1a8c461a62f5')
     version('4.4.0', 'a0bd6fe6ba7c504fbc962a88a2a56a90')
     version('4.3.0', '257d9f5429dac4d9511db84d201d3a9e')
     version('4.2.2', '988ea87554215a83c6ad52e554d8d8c4')
@@ -25,3 +26,12 @@ class PyJupyterClient(PythonPackage):
     depends_on('py-traitlets', type=('build', 'run'))
     depends_on('py-jupyter-core', type=('build', 'run'))
     depends_on('py-zmq@13:', type=('build', 'run'))
+    depends_on('py-tornado', type=('build', 'run'))
+    depends_on('py-dateutil', type=('build', 'run'))
+
+    def install(self, spec, prefix):
+        args = self.install_args(spec, prefix)
+        args.append('bdist_egg')
+        print(args)
+
+        self.setup_py('install', *args)
