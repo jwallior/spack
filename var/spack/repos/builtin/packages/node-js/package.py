@@ -31,11 +31,17 @@ class NodeJs(Package):
 
     depends_on('libtool', type='build', when=sys.platform != 'darwin')
     depends_on('pkgconfig', type='build')
-    depends_on('python@2.7:2.8', type='build')
     # depends_on('bash-completion', when="+bash-completion")
     depends_on('icu4c', when='+icu4c')
     depends_on('openssl@1.0.2d:1.0.99', when='@:9+openssl')
     depends_on('openssl@1.1:', when='@10:+openssl')
+
+    # when building py-jupyter-notebook with python3, node-js needs python2
+    # there is a resolution problem and this is a hack suggested here:
+    # https://github.com/spack/spack/issues/4319
+    #depends_on('python@2.7:2.8', type='build')
+    def setup_environment(self, spack_env, run_env):
+        spack_env.set('PYTHONHOME', '/usr')
 
     def install(self, spec, prefix):
         options = []
