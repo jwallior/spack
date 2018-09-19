@@ -12,6 +12,7 @@ class PyJupyterNotebook(PythonPackage):
     homepage = "https://github.com/jupyter/notebook"
     url      = "https://github.com/jupyter/notebook/archive/4.2.3.tar.gz"
 
+    version('5.6.0', '718279924c742add57c7834998c3da17')
     version('4.2.3', '5c6b0b1303adacd8972c4db21eda3e98')
     version('4.2.2', '7f9717ae4fed930d187a44c0707b6379')
     version('4.2.1', '4286f1eaf608257bd69cad4042c7c2fe')
@@ -38,5 +39,15 @@ class PyJupyterNotebook(PythonPackage):
     depends_on('py-nbformat', type=('build', 'run'))
     depends_on('py-nbconvert', type=('build', 'run'))
     depends_on('py-ipykernel', type=('build', 'run'))
-    depends_on('py-terminado@0.3.3:', when="+terminal", type=('build', 'run'))
+    depends_on('py-prometheus_client', type=('build', 'run'))
+    depends_on('py-send2trash', type=('build', 'run'))
+    depends_on('py-zmq', type=('build', 'run'))
+    depends_on('py-terminado@0.3.3:', type=('build', 'run'))
     depends_on('py-ipywidgets', when="+terminal", type=('build', 'run'))
+
+    def install(self, spec, prefix):
+        args = self.install_args(spec, prefix)
+        args.append('bdist_egg')
+        print(args)
+
+        self.setup_py('install', *args)
