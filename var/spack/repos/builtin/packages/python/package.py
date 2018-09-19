@@ -713,15 +713,16 @@ class Python(AutotoolsPackage):
         for src, dst in merge_map.items():
             if not path_contains_subdirectory(src, bin_dir):
                 view.link(src, dst)
-            elif not os.path.islink(src):
+            #elif not os.path.islink(src):
+            else:
                 copy(src, dst)
                 if 'script' in get_filetype(src):
                     filter_file(
                         self.spec.prefix, os.path.abspath(view.root), dst)
-            else:
-                orig_link_target = os.path.realpath(src)
-                new_link_target = os.path.abspath(merge_map[orig_link_target])
-                view.link(new_link_target, dst)
+            #else:
+            #    orig_link_target = os.path.realpath(src)
+            #    new_link_target = os.path.abspath(merge_map[orig_link_target])
+            #    view.link(new_link_target, dst)
 
     def remove_files_from_view(self, view, merge_map):
         bin_dir = self.spec.prefix.bin
