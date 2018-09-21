@@ -253,7 +253,8 @@ def build_tarball(spec, outdir, force=False, rel=False, unsigned=False,
         if force:
             os.remove(spackfile_path)
         else:
-            raise NoOverwriteException(str(spackfile_path))
+            tty.warn("Already package, skipping %s" % (spackfile_path))
+            return None
     # need to copy the spec file so the build cache can be downloaded
     # without concretizing with the current spack packages
     # and preferences
