@@ -402,6 +402,10 @@ def relocate_package(workdir, allow_root):
     if rel:
         return
 
+    if new_path == old_path:
+        tty.msg("Not relocating, old and new path match.")
+        return
+
     tty.msg("Relocating package from",
             "%s to %s." % (old_path, new_path))
     path_names = set()
