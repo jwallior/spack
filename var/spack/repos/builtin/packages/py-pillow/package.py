@@ -38,7 +38,7 @@ class PyPillow(PythonPackage):
     #         description='Provide improved color quantization')
 
     # Required dependencies
-    depends_on('binutils', type='build', when=sys.platform != 'darwin')
+    #depends_on('binutils', type='build', when=sys.platform != 'darwin')
     depends_on('py-setuptools', type='build')
 
     # Recommended dependencies
