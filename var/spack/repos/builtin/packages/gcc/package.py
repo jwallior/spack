@@ -230,15 +230,12 @@ class Gcc(AutotoolsPackage):
         if 'languages=jit' in spec:
             options.append('--enable-host-shared')
 
+        static_bootstrap_flags=''
         # Binutils
         if spec.satisfies('+binutils'):
             static_bootstrap_flags = '-static-libstdc++ -static-libgcc'
             binutils_options = [
                 '--with-sysroot=/',
-                '--with-stage1-ldflags={0} {1}'.format(
-                    self.rpath_args, static_bootstrap_flags),
-                '--with-boot-ldflags={0} {1}'.format(
-                    self.rpath_args, static_bootstrap_flags),
                 '--with-gnu-ld',
                 '--with-ld={0}/ld'.format(spec['binutils'].prefix.bin),
                 '--with-gnu-as',
@@ -254,6 +251,12 @@ class Gcc(AutotoolsPackage):
         if 'isl' in spec:
             options.append('--with-isl={0}'.format(spec['isl'].prefix))
 
+        options.extend( [
+                '--with-stage1-ldflags={0} {1}'.format(
+                    self.rpath_args, static_bootstrap_flags),
+                '--with-boot-ldflags={0} {1}'.format(
+                    self.rpath_args, static_bootstrap_flags)
+                ] )
         # macOS
         if sys.platform == 'darwin':
             options.append('--with-build-config=bootstrap-debug')
