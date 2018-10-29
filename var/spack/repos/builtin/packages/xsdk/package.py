@@ -91,13 +91,13 @@ class Xsdk(Package):
     depends_on('amrex@18.10.1', when='@0.4.0 %gcc')
 
     depends_on('slepc@develop', when='@develop')
-    depends_on('slepc@3.10.0', when='@0.4.0')
+    depends_on('slepc@3.10.1', when='@0.4.0')
 
     depends_on('omega-h@develop', when='@develop +omega-h')
     depends_on('omega-h@9.19.1', when='@0.4.0 +omega-h')
 
     depends_on('strumpack@master', when='@develop')
-    depends_on('strumpack@3.1.0', when='@0.4.0')
+    depends_on('strumpack@3.1.1', when='@0.4.0')
 
     depends_on('pumi@develop', when='@develop')
     depends_on('pumi@2.2.0', when='@0.4.0')
